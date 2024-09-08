@@ -1,0 +1,65 @@
+{
+	"_version": "1.17.0",
+	"sap.app": {
+		"id": "zz.UIIntegrationcard",
+		"type": "card",
+		"title": "UIIntegration",
+		"subTitle": "Integration Show",
+		"applicationVersion": {
+			"version": "1.0.0"
+		}
+	},
+	"sap.ui": {
+		"technology": "UI5",
+        "deviceTypes": {"desktop": true, "phone": true, "tablet": true},
+		"icons": {
+			"icon": "sap-icon://table-view"
+		}
+	},
+	"sap.card": {
+        "configuration": {
+            "destinations": {
+                "myDestination": {
+                    "name": "JAM"
+                }
+            },
+            "parameters": {
+                "top": {
+                    "value": 5
+                }
+            }
+        },
+		"type": "List",
+        "designtime": "dt/configuration",
+        "data": {
+            "request": {
+                "url": "{{destinations.myDestination}}/api/v1/OData/FeedEntries?$top={{parameters.top}}",
+                "parameters": {
+                    "$format": "json"
+                },
+                "withCredentials": true
+            },
+            "path": "/d/results"
+        },
+		"header": {
+			"title": "WorkZone",
+			"subTitle": "Custom Feed"
+		},
+		"content": {
+			"data": {
+				"path": "/d/results"
+			},
+			"item": {
+				"title": "{Title}",
+				"description": "{Text}",
+                "info": {
+					"value": "{= format.dateTime(${CreatedAt}, {relative:true}) }",
+					"state": "Success"
+				}
+			}
+		}
+	},
+    "sap.platform.mobilecards": {
+        "compatible": false
+    }
+}
